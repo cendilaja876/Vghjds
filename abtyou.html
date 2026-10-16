@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About You - The 1975</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #08080a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Ambient Dream Pop Animated Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: radial-gradient(circle at 25% 25%, rgba(147, 51, 234, 0.18), transparent 45%),
+                        radial-gradient(circle at 75% 75%, rgba(79, 70, 229, 0.18), transparent 45%),
+                        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.12), transparent 50%);
+            filter: blur(70px);
+            animation: pulseAmbient 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseAmbient {
+            0% { transform: scale(1) translate(0px, 0px); }
+            50% { transform: scale(1.08) translate(-15px, 20px); }
+            100% { transform: scale(1.03) translate(15px, -15px); }
+        }
+
+        /* Subtle Film Grain Effect */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(20, 20, 28, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Custom Interactive Range Input (Seek Bar & Volume) */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        /* Slider Track */
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 9999px;
+            transition: background 0.2s;
+        }
+
+        input[type=range]:hover::-webkit-slider-runnable-track {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Slider Thumb */
+        input[type=range]::-webkit-slider-thumb {
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -4px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+            background: #e9d5ff;
+        }
+
+        /* Vinyl Spin Effect */
+        .vinyl-spin {
+            animation: spin 22s linear infinite;
+        }
+
+        .vinyl-paused {
+            animation-play-state: paused;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+
+    <div class="ambient-bg"></div>
+    <div class="film-grain"></div>
+
+    <div class="container mx-auto px-4 py-8 max-w-3xl flex-grow flex flex-col justify-center">
+
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <span class="text-xs uppercase tracking-[0.35em] text-purple-300/80 font-medium">Being Funny In A Foreign Language</span>
+            <h1 class="font-serif-title text-4xl sm:text-6xl font-normal tracking-tight text-white mt-2 mb-2 drop-shadow-md">
+                About You
+            </h1>
+            <p class="text-xs sm:text-sm text-gray-400 font-light italic">
+                Oleh <span class="text-purple-200 font-normal">The 1975</span>
+            </p>
+        </header>
+
+        <!-- Main Player Card -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Album Artwork -->
+                <div class="md:col-span-5 flex justify-center items-center">
+                    <div class="relative w-48 h-48 sm:w-52 sm:h-52 group">
+                        <!-- Vinyl Record Effect Behind Cover -->
+                        <div id="vinylRecord" class="absolute inset-0 rounded-full bg-neutral-950 border-4 border-neutral-800 flex items-center justify-center shadow-2xl vinyl-spin vinyl-paused transition-all duration-700">
+                            <div class="w-16 h-16 rounded-full border-4 border-neutral-900 bg-purple-950/60 flex items-center justify-center">
+                                <div class="w-3 h-3 bg-white/70 rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Album Cover Image -->
+                        <img 
+                            src="https://images.genius.com/60ba63411598b6a0f4c140fdfe0e63e2.1000x1000x1.png" 
+                            alt="Being Funny in a Foreign Language Album Cover"
+                            class="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-xl border border-white/10 transition-transform duration-500 group-hover:scale-[1.02]"
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/181824/e2e8f0?text=BFIAFL+-+The+1975';"
+                        />
+                    </div>
+                </div>
+
+                <!-- Player Controls & Info -->
+                <div class="md:col-span-7 flex flex-col justify-center space-y-5">
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <span id="trackStatus" class="text-[11px] tracking-widest text-purple-300/80 font-mono uppercase">Siap Diputar</span>
+                            <span class="text-[11px] text-gray-400 font-mono">Dream Pop / Shoegaze</span>
+                        </div>
+                        <h2 class="text-2xl font-medium text-white">About You</h2>
+                        <p class="text-sm text-gray-400">The 1975 (feat. Carly Holt)</p>
+                    </div>
+
+                    <!-- SEEK BAR CONTAINER -->
+                    <div class="space-y-1">
+                        <div class="relative flex items-center">
+                            <input 
+                                type="range" 
+                                id="seekBar" 
+                                value="0" 
+                                min="0" 
+                                max="100" 
+                                step="0.1" 
+                                class="w-full cursor-pointer z-10"
+                                aria-label="Seek Bar Lagu"
+                            >
+                        </div>
+                        <div class="flex justify-between text-[11px] font-mono text-gray-400">
+                            <span id="currentTime">0:00</span>
+                            <span id="duration">5:26</span>
+                        </div>
+                    </div>
+
+                    <!-- Audio Controls & Buttons -->
+                    <div class="flex items-center justify-between pt-2">
+                        <!-- Volume Controls -->
+                        <div class="flex items-center space-x-2">
+                            <button id="muteBtn" class="text-gray-400 hover:text-white transition" title="Mute/Unmute">
+                                <i data-lucide="volume-2" id="volumeIcon" class="w-4 h-4"></i>
+                            </button>
+                            <input 
+                                type="range" 
+                                id="volumeSlider" 
+                                min="0" 
+                                max="100" 
+                                value="80" 
+                                class="w-16 sm:w-20 cursor-pointer"
+                                aria-label="Pengatur Volume"
+                            >
+                        </div>
+
+                        <!-- Play/Pause Button -->
+                        <button id="playBtn" class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg hover:shadow-purple-500/20">
+                            <i data-lucide="play" id="playIcon" class="w-6 h-6 fill-current ml-0.5"></i>
+                        </button>
+
+                        <!-- Load MP3 File Input -->
+                        <div>
+                            <label for="audioFileInput" class="inline-flex items-center space-x-1 text-[11px] text-purple-300/80 hover:text-purple-200 cursor-pointer transition">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                                <span>Upload .mp3</span>
+                            </label>
+                            <input type="file" id="audioFileInput" accept="audio/*" class="hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Source Element -->
+            <audio id="audioPlayer" preload="metadata">
+                <source src="https://raw.githubusercontent.com/sec2k25-tech/Hjwn/refs/heads/main/The%201975%20-%20About%20You.mp3" type="audio/mpeg">
+            </audio>
+        </section>
+
+        <!-- Song Details & Lyrics Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            <!-- Lyric Excerpt Card -->
+            <section class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center space-x-2 text-purple-300 mb-3">
+                        <i data-lucide="quote" class="w-4 h-4"></i>
+                        <h3 class="text-xs font-semibold tracking-wider uppercase">Cuplikan Lirik</h3>
+                    </div>
+                    
+                    <blockquote class="font-serif-title italic text-base text-gray-200 leading-relaxed pl-4 border-l-2 border-purple-400/50 my-3">
+                        "Do you think I have forgotten?<br>
+                        Do you think I have forgotten about you?<br>
+                       
+                    </blockquote>
+                    <p class="text-[11px] text-gray-400 text-right">— The 1975, <em>About You</em></p>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[11px] text-gray-400">Lirik Lengkap:</span>
+                    <a href="https://www.google.com/search?q=The+1975+About+You+lyrics" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] text-purple-300 hover:text-white transition">
+                        <span>Cari di Google</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Meaning Card -->
+            <section class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center space-x-2 text-purple-300 mb-3">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <h3 class="text-xs font-semibold tracking-wider uppercase">Makna Lagu</h3>
+                    </div>
+                    
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-2">
+                        <strong class="text-white font-medium">"About You"</strong> merupakan lagu ikonik bergenre *dream pop* dan *shoegaze*. Dikenal sebagai kelanjutan spiritual dari lagu * Robbers *, lagu ini menggambarkan rindu yang membentang luas terhadap seseorang yang pernah mengisi hidup di masa lalu.
+                    </p>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[11px] text-gray-400">Album: BFIAFL (2022)</span>
+                    <i data-lucide="disc" class="w-3.5 h-3.5 text-purple-300/60"></i>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Audio Player Elements
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const vinylRecord = document.getElementById('vinylRecord');
+        const trackStatus = document.getElementById('trackStatus');
+        const seekBar = document.getElementById('seekBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const audioFileInput = document.getElementById('audioFileInput');
+
+        let isPlaying = false;
+
+        // Toggle Play / Pause
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        });
+
+        function playAudio() {
+            audio.play().then(() => {
+                isPlaying = true;
+                playIcon.setAttribute('data-lucide', 'pause');
+                vinylRecord.classList.remove('vinyl-paused');
+                trackStatus.textContent = 'Memutar Musik';
+                lucide.createIcons();
+            }).catch(err => {
+                console.log("Audio playback deferred", err);
+            });
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+            playIcon.setAttribute('data-lucide', 'play');
+            vinylRecord.classList.add('vinyl-paused');
+            trackStatus.textContent = 'Dihentikan';
+            lucide.createIcons();
+        }
+
+        // --- INTERACTIVE SEEK BAR LOGIC ---
+        // Update Seek Bar as Audio Plays
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration && !isScrubbing) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                seekBar.value = progressPercent;
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
+        });
+
+        // Set Duration Display when Metadata Loads
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+            seekBar.value = 0;
+        });
+
+        // Prevent jitter while user drags the slider
+        let isScrubbing = false;
+
+        seekBar.addEventListener('mousedown', () => { isScrubbing = true; });
+        seekBar.addEventListener('touchstart', () => { isScrubbing = true; });
+
+        // Jump to clicked timestamp on Seek Bar change
+        seekBar.addEventListener('input', () => {
+            if (audio.duration) {
+                const targetTime = (seekBar.value / 100) * audio.duration;
+                currentTimeEl.textContent = formatTime(targetTime);
+            }
+        });
+
+        seekBar.addEventListener('change', () => {
+            if (audio.duration) {
+                audio.currentTime = (seekBar.value / 100) * audio.duration;
+            }
+            isScrubbing = false;
+        });
+
+        seekBar.addEventListener('mouseup', () => { isScrubbing = false; });
+        seekBar.addEventListener('touchend', () => { isScrubbing = false; });
+
+        // Volume Controls
+        volumeSlider.addEventListener('input', (e) => {
+            const val = e.target.value / 100;
+            audio.volume = val;
+            updateVolumeIcon(val);
+        });
+
+        muteBtn.addEventListener('click', () => {
+            if (audio.volume > 0) {
+                audio.dataset.prevVolume = audio.volume;
+                audio.volume = 0;
+                volumeSlider.value = 0;
+                updateVolumeIcon(0);
+            } else {
+                const prev = audio.dataset.prevVolume || 0.8;
+                audio.volume = prev;
+                volumeSlider.value = prev * 100;
+                updateVolumeIcon(prev);
+            }
+        });
+
+        function updateVolumeIcon(vol) {
+            if (vol === 0) {
+                volumeIcon.setAttribute('data-lucide', 'volume-x');
+            } else if (vol < 0.5) {
+                volumeIcon.setAttribute('data-lucide', 'volume-1');
+            } else {
+                volumeIcon.setAttribute('data-lucide', 'volume-2');
+            }
+            lucide.createIcons();
+        }
+
+        // Custom File Upload (Allows listening to local MP3 file with active seek bar)
+        audioFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                audio.src = fileURL;
+                trackStatus.textContent = 'File Lokal Terpasang';
+                playAudio();
+            }
+        });
+
+        // Helper: Format Time in MM:SS
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
+</body>
+</html>
